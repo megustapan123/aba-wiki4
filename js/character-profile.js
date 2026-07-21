@@ -211,6 +211,7 @@ function renderMoves(article) {
         if (transformation) {
             renderTransformation(transformation);
             renderedSections.add(section);
+            renderGroup(moves.filter((move) => move.section === section));
             transformation.moveSections.forEach((moveSection) => {
                 renderGroup(moves.filter((move) => move.section === moveSection));
                 renderedSections.add(moveSection);
@@ -227,7 +228,7 @@ function renderMoves(article) {
 function getTransformations(article) {
     const headings = [...article.querySelectorAll('h2, h3')];
     const getSectionName = (heading) => heading.textContent.replace(/\s+/g, ' ').trim();
-    return headings.filter((heading) => /transformation/i.test(heading.textContent)).map((heading) => {
+    return headings.filter((heading) => /transformation|\((?:second\s+)?awakening\)/i.test(heading.textContent)).map((heading) => {
         const section = [];
         for (let element = heading.nextElementSibling; element && !['H2', 'H3'].includes(element.tagName); element = element.nextElementSibling) section.push(element);
         const mediaItems = section.flatMap((item) => [...item.querySelectorAll('img[data-src], img[src], video[src]')]);
@@ -236,7 +237,7 @@ function getTransformations(article) {
         const nextHeading = headings[headings.indexOf(heading) + 1];
         const moveSections = nextHeading && /(?:awakening|transformed|mode).*moves/i.test(nextHeading.textContent) ? [getSectionName(nextHeading)] : [];
         return {
-            name: heading.textContent.replace(/\s*\(Transformation\)\s*/i, '').replace(/[\[\]]/g, '').trim(),
+            name: heading.textContent.replace(/\s*\((?:(?:second\s+)?awakening|transformation)\)\s*/i, '').replace(/[\[\]]/g, '').trim(),
             section: getSectionName(heading),
             moveSections,
             description: description || 'This character gains access to a transformed moveset.',
