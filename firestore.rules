@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /combos/{comboId} {
+      allow read: if resource.data.status == 'approved';
+
+      allow create: if request.auth != null
+        && request.resource.data.keys().hasOnly([
+          'title',
+          'character',
+          'notes',
+          'videoUrl',
+          'videoPath',
+          'ownerId',
+          'status',
+          'createdAt'
+        ])
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 80
+        && request.resource.data.character is string
+        && request.resource.data.character.size() > 0
+        && request.resource.data.character.size() <= 80
+        && request.resource.data.notes is string
+        && request.resource.data.notes.size() <= 360
+        && request.resource.data.videoUrl is string
+        && request.resource.data.videoPath is string
+        && request.resource.data.videoPath.matches('^combo-videos/' + request.auth.uid + '/[^/]+$');
+
+      // Review happens through Firebase Console or a trusted Admin SDK, which bypasses these rules.
+      allow update, delete: if false;
+    }
+  }
+}

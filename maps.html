@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABA Maps | Anime Battle Arena Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-ring">
+            <img class="loader-logo" src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'">
+        </div>
+        <p class="loader-text">Loading<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        <div class="loader-bar"><span class="loader-bar-fill"></span></div>
+    </div>
+
+    <div class="page">
+        <header class="topbar">
+            <div class="brand"><a href="index.html"><img src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'"></a></div>
+            <div class="hotbar" id="hotbar">
+                <button class="hotbar-label" id="info-toggle" aria-expanded="false" aria-controls="info-menu" aria-label="Open menu">
+                    <svg class="hotbar-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/></svg>
+                </button>
+                <div class="hotbar-menu" id="info-menu">
+                    <a href="characters.html">Characters</a><a href="maps.html">Maps</a><a href="combos.html">Combos</a><a href="skins.html">Skins</a><a href="index.html#misc">Misc</a>
+                </div>
+            </div>
+            <div class="topbar-info" id="topbar-info">
+                <a href="characters.html">Characters</a><a href="maps.html">Maps</a><a href="combos.html">Combos</a><a href="skins.html">Skins</a><a href="index.html#misc">Misc</a>
+                <button class="info-close" id="info-close" aria-label="Close info menu"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l6.3 6.3-1.42 1.41L10.59 13.4l-6.3 6.3-1.41-1.41 6.3-6.3-6.3-6.3L4.29 4.3l6.3 6.3 6.3-6.3z"/></svg></button>
+            </div>
+        </header>
+
+        <main class="layout">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="index.html#quick-links">Quick Links</a></li>
+                    <li><a href="characters.html">Characters</a></li>
+                    <li><a href="maps.html">Maps</a></li>
+                    <li><a href="#one-piece">One Piece</a></li>
+                    <li><a href="#dragon-ball">Dragon Ball</a></li>
+                    <li><a href="#anime-maps">More Anime Maps</a></li>
+                    <li><a href="#special-maps">Special Maps</a></li>
+                </ul>
+            </aside>
+
+            <section class="content">
+                <div class="hero map-hero">
+                    <div>
+                        <p class="eyebrow">Arena &amp; Ranked</p>
+                        <h1>ABA Maps</h1>
+                        <p class="intro">Explore the battlefields of Anime Battle Arena. Arena players vote from three maps, while Ranked matches select an arena at random based on the team size.</p>
+                        <div class="tag-row"><span class="tag">42 Maps</span><span class="tag">Arena Voting</span><span class="tag">Ranked Rotation</span></div>
+                    </div>
+                    <img src="https://static.wikia.nocookie.net/animebattlearenaaba/images/1/16/Map.PNG/revision/latest?cb=20200408180307" alt="Anime Battle Arena map selection screen">
+                </div>
+
+                <nav class="toc" aria-label="Map categories">
+                    <h2>Map Categories</h2>
+                    <ol><li><a href="#one-piece">One Piece</a></li><li><a href="#dragon-ball">Dragon Ball</a></li><li><a href="#anime-maps">Anime Arenas</a></li><li><a href="#special-maps">Special Maps</a></li></ol>
+                </nav>
+
+                <section id="one-piece" class="map-section">
+                    <div class="section-header"><h2>One Piece</h2><a href="https://animebattlearenaaba.fandom.com/wiki/ABA_Maps" target="_blank" rel="noopener noreferrer">Official wiki ↗</a></div>
+                    <div class="map-grid">
+                        <a class="map-tile" data-map-title="Arlong Park"><span>Arlong Park</span></a><a class="map-tile" data-map-title="Corrida Colosseum"><span>Corrida Colosseum</span></a><a class="map-tile" data-map-title="Enies Lobby (Tower)"><span>Enies Lobby</span></a><a class="map-tile" data-map-title="Marineford"><span>Marineford</span></a><a class="map-tile" data-map-title="The Moby Dick"><span>The Moby Dick</span></a>
+                    </div>
+                </section>
+
+                <section id="dragon-ball" class="map-section">
+                    <div class="section-header"><h2>Dragon Ball</h2></div>
+                    <div class="map-grid">
+                        <a class="map-tile" data-map-title="Babidi's Ship"><span>Babidi's Ship</span></a><a class="map-tile" data-map-title="Budokai Tenkaichi Arena"><span>Budokai Arena</span></a><a class="map-tile" data-map-title="Cell Games Arena"><span>Cell Games Arena</span></a><a class="map-tile" data-map-title="Destroyed East City"><span>Destroyed East City</span></a><a class="map-tile" data-map-title="Destroyer Tournament"><span>Destroyer Tournament</span></a><a class="map-tile" data-map-title="Kami Lookout"><span>Kami Lookout</span></a><a class="map-tile" data-map-title="Namek"><span>Namek</span></a><a class="map-tile" data-map-title="Other World Stadium"><span>Other World Stadium</span></a><a class="map-tile" data-map-title="Planet Zoon"><span>Planet Zoon</span></a><a class="map-tile" data-map-title="The Hyperbolic Time Chamber"><span>Hyperbolic Time Chamber</span></a><a class="map-tile" data-map-title="Tournament of Power Arena"><span>Tournament of Power</span></a><a class="map-tile" data-map-title="World of The Kais"><span>World of The Kais</span></a>
+                    </div>
+                </section>
+
+                <section id="anime-maps" class="map-section">
+                    <div class="section-header"><h2>Anime Arenas</h2></div>
+                    <div class="map-grid">
+                        <a class="map-tile" data-map-title="Chunin Exams Arena (Preliminaries)"><span>Chunin Exams: Prelims</span></a><a class="map-tile" data-map-title="Chunin Exams Arena (Final Round)"><span>Chunin Exams: Finals</span></a><a class="map-tile" data-map-title="Kamui Dimension"><span>Kamui Dimension</span></a><a class="map-tile" data-map-title="Nine Tails Cage"><span>Nine Tails Cage</span></a><a class="map-tile" data-map-title="The Final Valley"><span>The Final Valley</span></a><a class="map-tile" data-map-title="The 3rd Training Ground"><span>3rd Training Ground</span></a><a class="map-tile" data-map-title="Bankai Training Cave"><span>Bankai Training Cave</span></a><a class="map-tile" data-map-title="City Streets"><span>City Streets</span></a><a class="map-tile" data-map-title="Ichigo's Inner World"><span>Ichigo's Inner World</span></a><a class="map-tile" data-map-title="Las Noches (Inside)"><span>Las Noches: Inside</span></a><a class="map-tile" data-map-title="Las Noches (Outside)"><span>Las Noches: Outside</span></a><a class="map-tile" data-map-title="Sōkyoku Hill"><span>Sōkyoku Hill</span></a><a class="map-tile" data-map-title="Outside Cairo"><span>Outside Cairo</span></a><a class="map-tile" data-map-title="Roman Colosseum"><span>Roman Colosseum</span></a><a class="map-tile" data-map-title="Skeleton Heel Stone"><span>Skeleton Heel Stone</span></a><a class="map-tile" data-map-title="Heavens Arena"><span>Heavens Arena</span></a><a class="map-tile" data-map-title="Trick Tower"><span>Trick Tower</span></a><a class="map-tile" data-map-title="Floor 1 Boss"><span>Floor 1 Boss</span></a><a class="map-tile" data-map-title="Sagiri Mountains"><span>Sagiri Mountains</span></a><a class="map-tile" data-map-title="Blood Beach"><span>Blood Beach</span></a><a class="map-tile" data-map-title="Sensui's Cave"><span>Sensui's Cave</span></a><a class="map-tile" data-map-title="Trost"><span>Trost</span></a><a class="map-tile" data-map-title="Basketball Gym"><span>Basketball Gym</span></a><a class="map-tile" data-map-title="Canyon"><span>Canyon</span></a>
+                    </div>
+                </section>
+
+                <section id="special-maps" class="map-section">
+                    <div class="section-header"><h2>Special Maps</h2></div>
+                    <p class="intro">These maps are not part of regular voting or private-server selection. They are created through specific characters or admin access.</p>
+                    <div class="map-grid">
+                        <a class="map-tile" data-map-title="Town of Beginnings (GPO)"><span>Town of Beginnings</span></a><a class="map-tile" data-map-title="Diatrekhōn Astēr Lonkhē"><span>Diatrekhōn Astēr Lonkhē</span></a><a class="map-tile" data-map-title="Ionioi Hetairoi"><span>Ionioi Hetairoi</span></a><a class="map-tile" data-map-title="Unlimited Blade Works"><span>Unlimited Blade Works</span></a><a class="map-tile" data-map-title="Heaven"><span>Heaven</span></a>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

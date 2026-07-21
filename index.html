@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABA Wiki | Anime Battle Arena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-ring">
+            <img class="loader-logo" src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'">
+        </div>
+        <p class="loader-text">Loading<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        <div class="loader-bar"><span class="loader-bar-fill"></span></div>
+    </div>
+
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">
+                <img src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'">
+            </div>
+            <div class="hotbar" id="hotbar">
+                <button class="hotbar-label" id="info-toggle" aria-expanded="false" aria-controls="info-menu" aria-label="Open menu">
+                    <svg class="hotbar-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/></svg>
+                </button>
+                <div class="hotbar-menu" id="info-menu">
+                    <a href="characters.html">Characters</a>
+                    <a href="maps.html">Maps</a>
+                    <a href="combos.html">Combos</a>
+                    <a href="skins.html">Skins</a>
+                    <a href="#misc">Misc</a>
+                </div>
+            </div>
+            <div class="topbar-info" id="topbar-info">
+                <a href="characters.html">Characters</a>
+                <a href="maps.html">Maps</a>
+                <a href="combos.html">Combos</a>
+                <a href="skins.html">Skins</a>
+                <a href="#misc">Misc</a>
+                <button class="info-close" id="info-close" aria-label="Close info menu">
+                    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l6.3 6.3-1.42 1.41L10.59 13.4l-6.3 6.3-1.41-1.41 6.3-6.3-6.3-6.3L4.29 4.3l6.3 6.3 6.3-6.3z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="layout">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="#quick-links">Quick Links</a></li>
+                    <li><a href="characters.html">Characters</a></li>
+                    <li><a href="maps.html">Maps</a></li>
+                    <li><a href="combos.html">Combos</a></li>
+                    <li><a href="skins.html">Skins</a></li>
+                    <li><a href="#misc">Misc</a></li>
+                    <li><a href="#announcements">Announcements</a></li>
+                    <li><a href="#socials">Socials</a></li>
+                </ul>
+            </aside>
+
+            <section class="content">
+                <div class="hero">
+                    <h1>Anime Battle Arena</h1>
+                    <p class="intro"><strong>Anime Battle Arena</strong> is a popular game on the MMO platform <a href="https://en.wikipedia.org/wiki/ROBLOX" target="_blank" rel="noopener noreferrer">ROBLOX</a>. It is an online combative game where <strong>YOU</strong> can play characters from major shounen franchises. Every roster pick demands sharp game sense and a different approach to combat.</p>
+                    <div class="tag-row">
+                        <span class="tag">Roblox</span>
+                        <span class="tag">PvP Combat</span>
+                        <span class="tag">Combo-Driven</span>
+                        <span class="tag">Free to Play</span>
+                    </div>
+                </div>
+
+                <nav class="toc" aria-label="Table of contents">
+                    <h2>Contents</h2>
+                    <ol>
+                        <li><a href="#quick-links">Quick Links</a></li>
+                        <li><a href="#announcements">Announcements</a></li>
+                        <li><a href="#patch-notes">Patch Notes</a></li>
+                        <li><a href="#character-update-log">Character Update Log</a></li>
+                        <li><a href="#socials">Socials</a></li>
+                    </ol>
+                </nav>
+
+                <div class="card card-image">
+                    <h3>Featured</h3>
+                    <a href="https://www.roblox.com/games/544009576/Anime-Battle-Arena" target="_blank" rel="noopener noreferrer">
+                        <img id="featured-image" src="images/featured-2v1.jpg" alt="Anime Battle Arena featured character showcase" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/0/0c/2V1.jpg/revision/latest/scale-to-width-down/670?cb=20210406024101'">
+                    </a>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" data-direction="prev" aria-label="Previous image">&#10094;</button>
+                        <button class="carousel-btn" data-direction="next" aria-label="Next image">&#10095;</button>
+                    </div>
+                    <p id="featured-caption">Kaido Rush, the explosive striker known for blazing combos and fearless rushdowns.</p>
+                </div>
+
+                <section id="quick-links">
+                    <div class="section-header">
+                        <h2>Quick Links</h2>
+                    </div>
+                    <div class="quick-links-grid">
+                        <a href="characters.html" class="quick-link-card">
+                            <img src="images/featured-2v1.jpg" alt="Characters roster artwork" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/0/0c/2V1.jpg/revision/latest/scale-to-width-down/670?cb=20210406024101'">
+                            <h3>Characters</h3>
+                            <p>Browse the full roster of shounen fighters and their unique kits.</p>
+                        </a>
+                        <a href="maps.html" class="quick-link-card">
+                            <img src="images/featured-fightstronger.jpeg" alt="Arena map artwork" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/1/1d/FightAndBeStronger.jpeg/revision/latest/scale-to-width-down/670?cb=20210406022102'">
+                            <h3>Maps</h3>
+                            <p>Explore the battle arenas where every showdown takes place.</p>
+                        </a>
+                        <a id="combos" href="combos.html" class="quick-link-card">
+                            <img src="images/featured-saiga.jpeg" alt="Combo showcase artwork" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/8/87/SaigaNoGetsugaro.jpeg/revision/latest/scale-to-width-down/670?cb=20210512005411'">
+                            <h3>Combos</h3>
+                            <p>Learn combo strings and rushdown tech to out-play your opponent.</p>
+                        </a>
+                        <a id="skins" href="skins.html" class="quick-link-card">
+                            <img src="images/featured-3000robux.jpeg" alt="Skin showcase artwork" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/2/2d/3000ROBUXSKIN.jpeg/revision/latest/scale-to-width-down/670?cb=20210606031339'">
+                            <h3>Skins</h3>
+                            <p>Check out premium and event skins for your favorite characters.</p>
+                        </a>
+                        <div id="misc" class="quick-link-card">
+                            <img src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'">
+                            <h3>Misc</h3>
+                            <p>Lore, community content, and everything else worth knowing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <article id="announcements">
+                    <div class="section-header">
+                        <h2>ANNOUNCEMENTS</h2>
+                        <button class="expand-button" id="announcements-toggle" type="button">Expand</button>
+                    </div>
+                    <p>Stay up to date with the latest game news, event drops, and ABA updates. This space highlights current announcements and important in-game alerts.</p>
+                </article>
+
+                <article id="patch-notes" class="hidden-section">
+                    <h2>Patch Notes</h2>
+                    <p>Read the newest balance changes, bug fixes, and gameplay tweaks released in the latest update. ABA patch notes keep the community informed about every fight-ready adjustment.</p>
+                </article>
+
+                <article id="character-update-log" class="hidden-section">
+                    <h2>Character Update Log</h2>
+                    <p>Track the newest character arrivals, skill reworks, and roster shifts. This log shows the ongoing evolution of fighters in Anime Battle Arena.</p>
+                </article>
+
+                <article id="socials">
+                    <h2>Socials</h2>
+                    <p>Follow the ABA community on social platforms for live streams, teasers, and member discussions.</p>
+                    <div class="social-links">
+                        <a href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="#7289da" d="M20.317 4.369A19.791 19.791 0 0016.637 3c-.211.354-.451.818-.617 1.181-1.88-.282-3.694-.282-5.5 0-.166-.363-.406-.827-.617-1.181A19.771 19.771 0 003.683 4.37C2.03 8.02 1.46 11.582 1.957 15.06c2.118 1.58 4.182 2.57 6.18 3.2 1.05-.143 2.089-.36 3.09-.64.12-.047.236-.09.347-.135.336.118.67.23 1.005.335 2.003.63 4.067 1.62 6.184 3.2.5-3.48-.073-7.04-1.728-10.69zM8.02 15.5c-1.077 0-1.95-.988-1.95-2.204 0-1.215.873-2.204 1.95-2.204 1.077 0 1.95.989 1.95 2.204 0 1.216-.873 2.204-1.95 2.204zm7.96 0c-1.077 0-1.95-.988-1.95-2.204 0-1.215.873-2.204 1.95-2.204 1.077 0 1.95.989 1.95 2.204 0 1.216-.873 2.204-1.95 2.204z"/></svg>
+                        </a>
+                        <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1da1f2" d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.38 8.58 8.58 0 0 1-2.72 1.04 4.27 4.27 0 0 0-7.27 3.9A12.13 12.13 0 0 1 3.15 4.9a4.27 4.27 0 0 0 1.32 5.7 4.24 4.24 0 0 1-1.93-.53v.05a4.27 4.27 0 0 0 3.42 4.19 4.27 4.27 0 0 1-1.92.07 4.27 4.27 0 0 0 3.99 2.96A8.56 8.56 0 0 1 2 19.54a12.08 12.08 0 0 0 6.55 1.92c7.86 0 12.16-6.52 12.16-12.17 0-.19 0-.39-.01-.58A8.7 8.7 0 0 0 24 5.5a8.52 8.52 0 0 1-2.54.7z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#ff0000" d="M23.5 6.2a2.95 2.95 0 0 0-2.08-2.1C19.18 3.5 12 3.5 12 3.5s-7.18 0-9.42.6A2.95 2.95 0 0 0 .5 6.2 30.01 30.01 0 0 0 0 12a30.01 30.01 0 0 0 .5 5.8 2.95 2.95 0 0 0 2.08 2.1c2.24.6 9.42.6 9.42.6s7.18 0 9.42-.6a2.95 2.95 0 0 0 2.08-2.1A30.01 30.01 0 0 0 24 12a30.01 30.01 0 0 0-.5-5.8zM9.77 15.54V8.46L15.27 12l-5.5 3.54z"/></svg>
+                        </a>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

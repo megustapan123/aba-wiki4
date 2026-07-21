@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /combo-videos/{userId}/{fileName} {
+      // Every visitor receives an anonymous Firebase session before the gallery loads.
+      allow read: if request.auth != null;
+
+      allow create: if request.auth != null
+        && request.auth.uid == userId
+        && request.resource.size > 0
+        && request.resource.size <= 35 * 1024 * 1024
+        && request.resource.contentType.matches('video/(mp4|webm|quicktime)');
+
+      allow update, delete: if false;
+    }
+  }
+}

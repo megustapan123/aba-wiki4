@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Profile | ABA Wiki</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="loader-ring"><img class="loader-logo" src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'"></div>
+        <p class="loader-text">Loading<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        <div class="loader-bar"><span class="loader-bar-fill"></span></div>
+    </div>
+
+    <div class="page">
+        <header class="topbar">
+            <div class="brand"><a href="index.html"><img src="images/site-logo.png" alt="ABA Wiki logo" onerror="this.onerror=null; this.src='https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132'"></a></div>
+            <div class="hotbar" id="hotbar">
+                <button class="hotbar-label" id="info-toggle" aria-expanded="false" aria-controls="info-menu" aria-label="Open menu"><svg class="hotbar-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/></svg></button>
+                <div class="hotbar-menu" id="info-menu"><a href="characters.html">Characters</a><a href="maps.html">Maps</a><a href="combos.html">Combos</a><a href="skins.html">Skins</a></div>
+            </div>
+            <div class="topbar-info" id="topbar-info">
+                <a href="characters.html">Characters</a><a href="maps.html">Maps</a><a href="combos.html">Combos</a><a href="skins.html">Skins</a>
+                <button class="info-close" id="info-close" aria-label="Close info menu"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18.3 5.71 12 12.01l6.3 6.3-1.42 1.41L10.59 13.4l-6.3 6.3-1.41-1.41 6.3-6.3-6.3-6.3L4.29 4.3l6.3 6.3 6.3-6.3z"/></svg></button>
+            </div>
+        </header>
+
+        <main class="layout">
+            <aside class="sidebar">
+                <ul>
+                    <li><a href="maps.html">All Maps</a></li>
+                    <li><a href="#profile">Profile</a></li>
+                    <li id="map-sections-nav" hidden><a href="#map-sections">Wiki Details</a></li>
+                </ul>
+            </aside>
+
+            <section class="content map-profile" id="profile" aria-live="polite">
+                <a class="back-link" href="maps.html">&larr; ABA Maps</a>
+                <div class="profile-loading" id="map-loading">Loading map profile...</div>
+                <div id="map-content" hidden>
+                    <header class="profile-hero map-profile-hero">
+                        <img id="map-image" alt="">
+                        <div>
+                            <p class="eyebrow">Anime Battle Arena Map</p>
+                            <h1 id="map-name"></h1>
+                            <p class="intro" id="map-summary"></p>
+                            <a class="profile-source" id="map-source" target="_blank" rel="noopener noreferrer">View official ABA Wiki article &nearr;</a>
+                        </div>
+                    </header>
+                    <section id="map-sections" class="profile-panel" hidden>
+                        <div class="section-header"><h2>Map Details</h2></div>
+                        <div id="map-section-list"></div>
+                    </section>
+                </div>
+                <div class="profile-error" id="map-error" hidden>
+                    <h1>Map not found</h1>
+                    <p>Return to the maps page and select an available ABA map.</p>
+                    <a class="profile-source" href="maps.html">Browse maps</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
