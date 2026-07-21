@@ -1592,6 +1592,51 @@ article h2 {
         position: sticky;
         top: 20px;
     }
+
+    .roster-page .page {
+        max-width: 1320px;
+    }
+
+    .roster-page .layout {
+        grid-template-columns: 240px 1fr;
+        gap: 28px;
+    }
+
+    .roster-page .layout .content {
+        width: min(100%, 980px);
+        padding: 38px 42px;
+    }
+
+    .roster-page .sidebar {
+        padding: 24px;
+    }
+
+    .roster-page .roster-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+    }
+
+    .roster-page .roster-card {
+        padding: 20px 22px;
+    }
+
+    .roster-page .character-grid {
+        gap: 14px;
+    }
+
+    .roster-page .character-tile {
+        grid-template-rows: 150px auto;
+    }
+
+    .roster-page .character-tile img {
+        height: 150px;
+        padding: 10px;
+    }
+
+    .roster-page .character-tile span {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 800px) {

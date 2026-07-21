@@ -1,0 +1,5 @@
+assets/media/
+.env
+.env.*
+*.pem
+*.key

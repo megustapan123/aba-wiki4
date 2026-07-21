@@ -1,5 +1,6 @@
 param(
     [switch]$Upload,
+    [switch]$UploadIndexedMedia,
     [int]$MaximumPages = 0
 )
 
@@ -13,6 +14,20 @@ $manifest = @{}
 if (Test-Path $manifestPath) {
     $existing = Get-Content $manifestPath -Raw | ConvertFrom-Json
     $existing.psobject.Properties | ForEach-Object { $manifest[$_.Name] = $_.Value }
+}
+
+function Upload-Media($path, $key) {
+    if (-not (Get-Command aws -ErrorAction SilentlyContinue)) { throw 'AWS CLI is required to upload to R2.' }
+    aws s3 cp $path "s3://$env:R2_BUCKET/$key" --endpoint-url $env:R2_ENDPOINT --no-progress
+    if ($LASTEXITCODE -ne 0) { throw "R2 upload failed for $key" }
+}
+
+if ($UploadIndexedMedia) {
+    if (-not (Get-Command aws -ErrorAction SilentlyContinue)) { throw 'AWS CLI is required to upload to R2.' }
+    aws s3 sync $assetDirectory "s3://$env:R2_BUCKET/media" --endpoint-url $env:R2_ENDPOINT --no-progress --size-only
+    if ($LASTEXITCODE -ne 0) { throw 'R2 indexed-media repair failed.' }
+    Write-Output "Done. Synced indexed media files: $($manifest.Count)"
+    return
 }
 
 function Get-Hash($value) {
@@ -34,9 +49,7 @@ function Add-Media($url) {
         $client.DownloadFile($url, $destination)
     }
     if ($Upload) {
-        if (-not (Get-Command aws -ErrorAction SilentlyContinue)) { throw 'AWS CLI is required to upload to R2.' }
-        aws s3 cp $destination "s3://$env:R2_BUCKET/$key" --endpoint-url $env:R2_ENDPOINT --no-progress
-        if ($LASTEXITCODE -ne 0) { throw "R2 upload failed for $key" }
+        Upload-Media $destination $key
     }
     $manifest[$url] = $key
     Write-Output "Saved $key"
