@@ -109,6 +109,7 @@ function renderDetails(article) {
 
 function getMoves(article) {
     let section = 'Moves';
+    const cleanMoveName = (value) => value.replace(/[\[\]]/g, '').replace(/:\s*/g, ': ').replace(/\s+/g, ' ').trim();
     const moves = [...article.querySelectorAll('h2, h3, p')].flatMap((element) => {
         if (['H2', 'H3'].includes(element.tagName)) { section = element.textContent.replace(/\s+/g, ' ').trim(); return []; }
         const text = element.textContent.replace(/\s+/g, ' ').trim();
@@ -116,9 +117,9 @@ function getMoves(article) {
         const [description, properties] = text.split('Properties:');
         let nameElement = element.previousElementSibling;
         while (nameElement && (!nameElement.matches('p, li') || !nameElement.querySelector('b, strong'))) nameElement = nameElement.previousElementSibling;
-        const strongName = nameElement?.querySelector('b, strong')?.textContent.replace(/[\[\]]/g, '').replace(/:\s*$/, '').trim();
+        const strongName = nameElement?.querySelector('b, strong') ? cleanMoveName(nameElement.querySelector('b, strong').textContent).replace(/:$/, '') : '';
         const match = description.match(/^\s*(?:\[)?(.{1,80}?)(?:\])?\s*:\s*(.*)$/);
-        const name = match?.[1]?.replace(/[\[\]]/g, '').trim() || strongName || 'Move';
+        const name = match?.[1] ? cleanMoveName(match[1]) : strongName || 'Move';
         const descriptionText = match?.[2] || description.replace(/^\s*\[[^\]]+\]\s*/, '').trim();
         const image = [...article.querySelectorAll('img[data-src], img[src]')].find((item) => {
             const imageText = `${item.alt} ${item.dataset.caption || ''}`.replace(/\s+/g, ' ');
