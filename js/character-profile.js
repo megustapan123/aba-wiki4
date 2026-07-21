@@ -12,7 +12,7 @@ export function getProfileSkins(article) {
 
 function extractSkins(article, galleryItems) {
     const seen = new Set();
-    return galleryItems.map((item) => item.querySelector('img[data-src], img[src]')).filter(Boolean).map((image) => {
+    const skins = galleryItems.map((item) => item.querySelector('img[data-src], img[src]')).filter(Boolean).map((image) => {
         const captionElement = article.ownerDocument.createElement('div');
         captionElement.innerHTML = image.dataset.caption || image.alt || image.dataset.imageName || 'Character skin';
         return {
@@ -25,6 +25,15 @@ function extractSkins(article, galleryItems) {
         seen.add(skin.key);
         return true;
     }).slice(0, 36);
+    const variants = new Set();
+    return skins.filter((skin) => {
+        const match = skin.caption.match(/\b(?:\d+(?:st|nd|rd|th)?|gold|legendary|default)\s+skin\b/i);
+        const identity = match?.[0].toLowerCase();
+        if (!identity) return true;
+        if (variants.has(identity)) return false;
+        variants.add(identity);
+        return true;
+    });
 }
 
 function getProfileSkinGroups(article) {
