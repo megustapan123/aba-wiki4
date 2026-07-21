@@ -109,17 +109,30 @@ function renderDetails(article) {
 
 function getMoves(article) {
     let section = 'Moves';
-    return [...article.querySelectorAll('h2, h3, p')].flatMap((element) => {
+    const moves = [...article.querySelectorAll('h2, h3, p')].flatMap((element) => {
         if (['H2', 'H3'].includes(element.tagName)) { section = element.textContent.replace(/\s+/g, ' ').trim(); return []; }
         const text = element.textContent.replace(/\s+/g, ' ').trim();
         if (!text.includes('Properties:')) return [];
         const [description, properties] = text.split('Properties:');
-        let container = element;
-        let image;
-        while (container && container !== article && !image) { image = container.querySelector('img[data-src], img[src]'); container = container.parentElement; }
-        const caption = [image?.alt, image?.closest('figure')?.querySelector('figcaption')?.textContent, image?.closest('figure')?.textContent].map((value) => value?.match(/using "([^"]+)"/i)?.[1]).find(Boolean);
-        const match = description.match(/^(.{1,80}?):\s*(.*)$/);
-        return [{ name: match?.[1] || caption || 'Move', description: match?.[2] || description, properties: properties?.trim() || '', image: image?.dataset.src || image?.src || '', section }];
+        let nameElement = element.previousElementSibling;
+        while (nameElement && (!nameElement.matches('p, li') || !nameElement.querySelector('b, strong'))) nameElement = nameElement.previousElementSibling;
+        const strongName = nameElement?.querySelector('b, strong')?.textContent.replace(/[\[\]]/g, '').replace(/:\s*$/, '').trim();
+        const match = description.match(/^\s*(?:\[)?(.{1,80}?)(?:\])?\s*:\s*(.*)$/);
+        const name = match?.[1]?.replace(/[\[\]]/g, '').trim() || strongName || 'Move';
+        const descriptionText = match?.[2] || description.replace(/^\s*\[[^\]]+\]\s*/, '').trim();
+        const image = [...article.querySelectorAll('img[data-src], img[src]')].find((item) => {
+            const imageText = `${item.alt} ${item.dataset.caption || ''}`.replace(/\s+/g, ' ');
+            const normalize = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, '');
+            return normalize(imageText).includes(normalize(name));
+        });
+        return [{ name, description: descriptionText, properties: properties?.trim() || '', image: image?.dataset.src || image?.src || '', section }];
+    });
+    const seen = new Set();
+    return moves.filter((move) => {
+        const key = `${move.section}|${move.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
     });
 }
 
@@ -163,7 +176,7 @@ function getTransformations(article) {
         const images = section.flatMap((item) => [...item.querySelectorAll('img[data-src], img[src]')]);
         const image = images.find((item) => (item.dataset.src || item.src) && !(item.dataset.src || item.src).startsWith('data:'));
         const description = section.flatMap((item) => [...item.querySelectorAll('figcaption, p')]).map((item) => item.textContent.replace(/\s+/g, ' ').trim()).find((text) => text.length > 12 && !text.includes('Properties:'));
-        return { name: heading.textContent.replace(/\s*\(Transformation\)\s*/i, '').trim(), section: heading.textContent.replace(/\s+/g, ' ').trim(), description: description || 'This character gains access to a transformed moveset.', image: image?.dataset.src || image?.src || '' };
+        return { name: heading.textContent.replace(/\s*\(Transformation\)\s*/i, '').replace(/[\[\]]/g, '').trim(), section: heading.textContent.replace(/\s+/g, ' ').trim(), description: description || 'This character gains access to a transformed moveset.', image: image?.dataset.src || image?.src || '' };
     });
 }
 
