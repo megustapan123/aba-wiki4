@@ -1,5 +1,5 @@
 import { initializeCharacterSearch } from './character-search.js';
-import { initializeMoveViewer, loadCharacterProfile } from './character-profile.js';
+import { initializeMoveViewer, loadCharacterProfile } from './character-profile.js?v=skin-gallery-3';
 import { initializeMaps } from './maps.js';
 import { initializeRoster } from './roster.js';
 import { loadSkinLibrary } from './skin-library.js';

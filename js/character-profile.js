@@ -37,8 +37,7 @@ function extractSkins(article, galleryItems) {
 }
 
 function getProfileSkinGroups(article) {
-    const heading = [...article.querySelectorAll('h2, h3, h4')].find((item) => /^skins$/i.test(item.textContent.trim()));
-    const tabber = heading?.nextElementSibling?.matches('.wds-tabber') ? heading.nextElementSibling : null;
+    const tabber = [...article.querySelectorAll('.tabber.wds-tabber')].find((element) => element.querySelector('.wikia-gallery-item'));
     if (!tabber) return [{ label: 'Skins', skins: getProfileSkins(article) }];
     const labels = [...tabber.querySelectorAll(':scope > .wds-tabs__wrapper .wds-tabs__tab-label')].map((item) => item.textContent.trim());
     return [...tabber.querySelectorAll(':scope > .wds-tab__content')].map((content, index) => ({
