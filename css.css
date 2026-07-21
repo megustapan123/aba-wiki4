@@ -7,6 +7,7 @@
     --accent-soft: rgba(245, 196, 0, 0.15);
     --accent-border: rgba(245, 196, 0, 0.35);
     --panel-bg: rgba(0, 0, 0, 0.55);
+    --theme-overlay: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78));
 }
 
 body,
@@ -29,7 +30,7 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78)),
+    background: var(--theme-overlay),
                 url('images/hero-background.webp') center/cover no-repeat fixed;
     background-attachment: fixed;
     color: #ffffff;
@@ -38,6 +39,68 @@ body {
 
 body.loaded {
     overflow: auto;
+}
+
+body[data-franchise="one-piece"] {
+    --accent: #e7b52f;
+    --accent-soft: rgba(218, 53, 53, 0.17);
+    --accent-border: rgba(231, 181, 47, 0.48);
+    --theme-overlay: linear-gradient(rgba(117, 20, 27, 0.76), rgba(10, 37, 79, 0.86));
+}
+
+body[data-franchise="bleach"] {
+    --accent: #78c7ff;
+    --accent-soft: rgba(120, 199, 255, 0.16);
+    --accent-border: rgba(120, 199, 255, 0.48);
+    --theme-overlay: linear-gradient(rgba(10, 36, 70, 0.8), rgba(5, 10, 24, 0.9));
+}
+
+body[data-franchise="naruto"] {
+    --accent: #ff9c45;
+    --accent-soft: rgba(255, 104, 38, 0.16);
+    --accent-border: rgba(255, 156, 69, 0.48);
+    --theme-overlay: linear-gradient(rgba(109, 42, 16, 0.8), rgba(39, 16, 8, 0.9));
+}
+
+body[data-franchise="dragon-ball"] {
+    --accent: #67d5ff;
+    --accent-soft: rgba(83, 139, 255, 0.17);
+    --accent-border: rgba(103, 213, 255, 0.48);
+    --theme-overlay: linear-gradient(rgba(11, 41, 112, 0.8), rgba(30, 12, 79, 0.9));
+}
+
+body[data-franchise="jujutsu-kaisen"],
+body[data-franchise="jojo"] {
+    --accent: #ff6eae;
+    --accent-soft: rgba(255, 110, 174, 0.16);
+    --accent-border: rgba(255, 110, 174, 0.48);
+    --theme-overlay: linear-gradient(rgba(67, 17, 83, 0.82), rgba(18, 8, 43, 0.91));
+}
+
+body[data-franchise="my-hero-academia"],
+body[data-franchise="demon-slayer"] {
+    --accent: #e84f4f;
+    --accent-soft: rgba(232, 79, 79, 0.16);
+    --accent-border: rgba(232, 79, 79, 0.48);
+    --theme-overlay: linear-gradient(rgba(92, 16, 24, 0.81), rgba(14, 37, 33, 0.91));
+}
+
+body[data-franchise="hunter-x-hunter"],
+body[data-franchise="black-clover"] {
+    --accent: #74d684;
+    --accent-soft: rgba(116, 214, 132, 0.16);
+    --accent-border: rgba(116, 214, 132, 0.48);
+    --theme-overlay: linear-gradient(rgba(15, 71, 47, 0.82), rgba(9, 28, 27, 0.91));
+}
+
+body[data-franchise="one-punch-man"],
+body[data-franchise="fate"],
+body[data-franchise="sword-art-online"],
+body[data-franchise="tokyo-ghoul"] {
+    --accent: #d9d9df;
+    --accent-soft: rgba(217, 217, 223, 0.14);
+    --accent-border: rgba(217, 217, 223, 0.42);
+    --theme-overlay: linear-gradient(rgba(39, 39, 47, 0.82), rgba(4, 4, 7, 0.93));
 }
 
 .loader {
