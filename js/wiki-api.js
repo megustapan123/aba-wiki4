@@ -1,3 +1,5 @@
+import { localizeArticleMedia, resolveMediaUrl } from './r2-media.js';
+
 const WIKI_API = 'https://animebattlearenaaba.fandom.com/api.php';
 
 export const fallbackImage = 'https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132';
@@ -5,7 +7,11 @@ export const fallbackImage = 'https://static.wikia.nocookie.net/animebattlearena
 export async function fetchWikiPages(titles, thumbnailSize = 500) {
     const response = await fetch(`${WIKI_API}?action=query&format=json&origin=*&prop=pageimages%7Cinfo&inprop=url&pithumbsize=${thumbnailSize}&titles=${encodeURIComponent(titles.join('|'))}`);
     const data = await response.json();
-    return Object.values(data.query?.pages || {});
+    const pages = Object.values(data.query?.pages || {});
+    await Promise.all(pages.map(async (page) => {
+        if (page.thumbnail?.source) page.thumbnail.source = await resolveMediaUrl(page.thumbnail.source);
+    }));
+    return pages;
 }
 
 export async function fetchWikiArticle(title, thumbnailSize = 600) {
@@ -21,7 +27,9 @@ export async function fetchWikiArticle(title, thumbnailSize = 600) {
     }
 
     const document = new DOMParser().parseFromString(articleData.parse.text['*'], 'text/html');
-    return { page, article: document.querySelector('.mw-parser-output') || document.body };
+    const article = document.querySelector('.mw-parser-output') || document.body;
+    await localizeArticleMedia(article);
+    return { page, article };
 }
 
 export async function fetchCharacterTitles() {
