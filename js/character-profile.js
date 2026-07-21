@@ -7,7 +7,10 @@ export function getProfileSkins(article) {
     const tab = [...article.querySelectorAll('.wds-tab__content')].find((item) => item.previousElementSibling?.querySelector('[data-hash="Skins"]'));
     const items = section.flatMap((element) => [...element.querySelectorAll('.wikia-gallery-item')]);
     const galleryItems = items.length ? items : [...(tab || article).querySelectorAll('.wikia-gallery-item')];
+    return extractSkins(article, galleryItems);
+}
 
+function extractSkins(article, galleryItems) {
     const seen = new Set();
     return galleryItems.map((item) => item.querySelector('img[data-src], img[src]')).filter(Boolean).map((image) => {
         const captionElement = article.ownerDocument.createElement('div');
@@ -22,6 +25,17 @@ export function getProfileSkins(article) {
         seen.add(skin.key);
         return true;
     }).slice(0, 36);
+}
+
+function getProfileSkinGroups(article) {
+    const heading = [...article.querySelectorAll('h2, h3, h4')].find((item) => /^skins$/i.test(item.textContent.trim()));
+    const tabber = heading?.nextElementSibling?.matches('.wds-tabber') ? heading.nextElementSibling : null;
+    if (!tabber) return [{ label: 'Skins', skins: getProfileSkins(article) }];
+    const labels = [...tabber.querySelectorAll(':scope > .wds-tabs__wrapper .wds-tabs__tab-label')].map((item) => item.textContent.trim());
+    return [...tabber.querySelectorAll(':scope > .wds-tab__content')].map((content, index) => ({
+        label: labels[index] || `Skins ${index + 1}`,
+        skins: extractSkins(article, [...content.querySelectorAll('.wikia-gallery-item')])
+    })).filter((group) => group.skins.length);
 }
 
 export function renderSkinCard(grid, source, caption, index) {
@@ -238,10 +252,32 @@ function renderProperties(element, properties) {
 }
 
 function renderSkins(article) {
-    const skins = getProfileSkins(article);
-    if (!skins.length) return;
-    const grid = document.getElementById('skin-grid');
-    skins.forEach(({ source, caption }, index) => renderSkinCard(grid, source, caption, index));
+    const groups = getProfileSkinGroups(article);
+    if (!groups.length) return;
+    const container = document.getElementById('skin-grid');
+    container.className = 'skin-tabs';
+    container.replaceChildren();
+    const tabList = document.createElement('div');
+    tabList.className = 'skin-tab-list';
+    tabList.setAttribute('role', 'tablist');
+    const panels = groups.map((group, index) => {
+        const tab = document.createElement('button');
+        const panel = document.createElement('div');
+        const tabId = `skin-tab-${index}`;
+        const panelId = `skin-panel-${index}`;
+        tab.className = 'skin-tab'; tab.type = 'button'; tab.textContent = group.label;
+        tab.id = tabId; tab.setAttribute('role', 'tab'); tab.setAttribute('aria-controls', panelId); tab.setAttribute('aria-selected', String(index === 0));
+        panel.className = 'skin-grid'; panel.id = panelId; panel.setAttribute('role', 'tabpanel'); panel.setAttribute('aria-labelledby', tabId); panel.hidden = index !== 0;
+        group.skins.forEach(({ source, caption }, skinIndex) => renderSkinCard(panel, source, caption, skinIndex));
+        tab.addEventListener('click', () => panels.forEach(({ tab: otherTab, panel: otherPanel }) => {
+            const selected = otherTab === tab;
+            otherTab.setAttribute('aria-selected', String(selected));
+            otherPanel.hidden = !selected;
+        }));
+        tabList.append(tab);
+        return { tab, panel };
+    });
+    container.append(tabList, ...panels.map(({ panel }) => panel));
     document.getElementById('skins').hidden = false;
     document.getElementById('skins-nav').hidden = false;
 }

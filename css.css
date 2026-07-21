@@ -868,6 +868,29 @@ a.tag:hover {
     gap: 10px;
 }
 
+.skin-tab-list {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--accent-border);
+}
+
+.skin-tab {
+    padding: 9px 13px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #cfcfcf;
+    font: inherit;
+    cursor: pointer;
+}
+
+.skin-tab[aria-selected="true"] {
+    border-bottom-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+}
+
 .skin-library-hero {
     margin-bottom: 24px;
 }
