@@ -1,28 +1,5 @@
 import { fallbackImage, fetchWikiArticle } from './wiki-api.js';
 
-const franchiseThemes = {
-    'One Piece': 'one-piece',
-    Bleach: 'bleach',
-    Naruto: 'naruto',
-    'Dragon Ball': 'dragon-ball',
-    'Jujutsu Kaisen': 'jujutsu-kaisen',
-    "JoJo's Bizarre Adventure": 'jojo',
-    'My Hero Academia': 'my-hero-academia',
-    'Demon Slayer': 'demon-slayer',
-    'Hunter x Hunter': 'hunter-x-hunter',
-    'Black Clover': 'black-clover',
-    'One Punch Man': 'one-punch-man',
-    Fate: 'fate',
-    'Sword Art Online': 'sword-art-online',
-    'Tokyo Ghoul': 'tokyo-ghoul'
-};
-
-function applyFranchiseTheme(categories = []) {
-    const category = categories.map((item) => item.title?.replace(/^Category:/, '')).find((title) => franchiseThemes[title]);
-    if (category) document.body.dataset.franchise = franchiseThemes[category];
-    else delete document.body.dataset.franchise;
-}
-
 export function getProfileSkins(article) {
     const heading = [...article.querySelectorAll('h2, h3, h4')].find((item) => /^skins$/i.test(item.textContent.trim()));
     const section = [];
@@ -114,7 +91,6 @@ export async function loadCharacterProfile() {
 
     try {
         const { page, article } = await fetchWikiArticle(pageTitle, 600);
-        applyFranchiseTheme(page.categories);
         document.title = `${displayName} | ABA Wiki`;
         document.getElementById('profile-name').textContent = displayName;
         document.getElementById('profile-summary').textContent = getSummary(article);

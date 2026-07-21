@@ -5,7 +5,7 @@ const WIKI_API = 'https://animebattlearenaaba.fandom.com/api.php';
 export const fallbackImage = 'https://static.wikia.nocookie.net/animebattlearenaaba/images/e/e6/Site-logo.png/revision/latest?cb=20210628140132';
 
 export async function fetchWikiPages(titles, thumbnailSize = 500) {
-    const response = await fetch(`${WIKI_API}?action=query&format=json&origin=*&prop=pageimages%7Cinfo%7Ccategories&inprop=url&pithumbsize=${thumbnailSize}&titles=${encodeURIComponent(titles.join('|'))}`);
+    const response = await fetch(`${WIKI_API}?action=query&format=json&origin=*&prop=pageimages%7Cinfo&inprop=url&pithumbsize=${thumbnailSize}&titles=${encodeURIComponent(titles.join('|'))}`);
     const data = await response.json();
     const pages = Object.values(data.query?.pages || {});
     await Promise.all(pages.map(async (page) => {
