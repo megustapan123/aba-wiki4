@@ -8,14 +8,20 @@ export function getProfileSkins(article) {
     const items = section.flatMap((element) => [...element.querySelectorAll('.wikia-gallery-item')]);
     const galleryItems = items.length ? items : [...(tab || article).querySelectorAll('.wikia-gallery-item')];
 
+    const seen = new Set();
     return galleryItems.map((item) => item.querySelector('img[data-src], img[src]')).filter(Boolean).map((image) => {
         const captionElement = article.ownerDocument.createElement('div');
         captionElement.innerHTML = image.dataset.caption || image.alt || image.dataset.imageName || 'Character skin';
         return {
             source: image.dataset.src || image.src,
+            key: image.dataset.imageKey || image.dataset.imageName || image.dataset.src || image.src,
             caption: captionElement.textContent.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() || 'Character skin'
         };
-    }).filter((skin) => skin.source && !skin.source.startsWith('data:')).slice(0, 36);
+    }).filter((skin) => {
+        if (!skin.source || skin.source.startsWith('data:') || seen.has(skin.key)) return false;
+        seen.add(skin.key);
+        return true;
+    }).slice(0, 36);
 }
 
 export function renderSkinCard(grid, source, caption, index) {
@@ -159,9 +165,9 @@ function renderMoves(article) {
         list.append(card);
     });
     const transformations = getTransformations(article);
-    const transformedSections = new Set(transformations.flatMap((transformation) => [transformation.section, ...transformation.moveSections]));
-    renderGroup(moves.filter((move) => !transformedSections.has(move.section)));
-    transformations.forEach((transformation) => {
+    const transformationsBySection = new Map(transformations.map((transformation) => [transformation.section, transformation]));
+    const renderedSections = new Set();
+    const renderTransformation = (transformation) => {
         const card = document.createElement('article');
         card.className = 'transformation-card';
         card.innerHTML = '<div><p class="eyebrow">Transformation</p><h3></h3><p></p></div>';
@@ -174,7 +180,25 @@ function renderMoves(article) {
         }
         card.querySelector('h3').textContent = transformation.name;
         card.querySelector('div > p:last-child').textContent = transformation.description;
-        list.append(card); renderGroup(moves.filter((move) => transformation.moveSections.includes(move.section) || move.section === transformation.section));
+        list.append(card);
+    };
+
+    [...article.querySelectorAll('h2, h3')].forEach((heading) => {
+        const section = heading.textContent.replace(/\s+/g, ' ').trim();
+        const transformation = transformationsBySection.get(section);
+        if (transformation) {
+            renderTransformation(transformation);
+            renderedSections.add(section);
+            transformation.moveSections.forEach((moveSection) => {
+                renderGroup(moves.filter((move) => move.section === moveSection));
+                renderedSections.add(moveSection);
+            });
+            return;
+        }
+        if (renderedSections.has(section)) return;
+        const sectionMoves = moves.filter((move) => move.section === section);
+        if (sectionMoves.length) renderGroup(sectionMoves);
+        renderedSections.add(section);
     });
 }
 
