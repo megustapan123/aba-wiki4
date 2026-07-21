@@ -158,26 +158,45 @@ function renderMoves(article) {
         renderProperties(card.querySelector('small'), move.properties);
         list.append(card);
     });
-    renderGroup(moves.filter((move) => !/transformation/i.test(move.section)));
-    getTransformations(article).forEach((transformation) => {
+    const transformations = getTransformations(article);
+    const transformedSections = new Set(transformations.flatMap((transformation) => [transformation.section, ...transformation.moveSections]));
+    renderGroup(moves.filter((move) => !transformedSections.has(move.section)));
+    transformations.forEach((transformation) => {
         const card = document.createElement('article');
         card.className = 'transformation-card';
         card.innerHTML = '<div><p class="eyebrow">Transformation</p><h3></h3><p></p></div>';
-        if (transformation.image) { const image = document.createElement('img'); image.src = transformation.image; image.alt = `${transformation.name} transformation preview`; image.loading = 'lazy'; card.prepend(image); }
+        if (transformation.media) {
+            const media = document.createElement(transformation.mediaType === 'video' ? 'video' : 'img');
+            media.src = transformation.media;
+            if (media.tagName === 'VIDEO') { media.controls = true; media.preload = 'metadata'; media.muted = true; media.playsInline = true; }
+            else { media.alt = `${transformation.name} transformation preview`; media.loading = 'lazy'; }
+            card.prepend(media);
+        }
         card.querySelector('h3').textContent = transformation.name;
         card.querySelector('div > p:last-child').textContent = transformation.description;
-        list.append(card); renderGroup(moves.filter((move) => move.section === transformation.section));
+        list.append(card); renderGroup(moves.filter((move) => transformation.moveSections.includes(move.section) || move.section === transformation.section));
     });
 }
 
 function getTransformations(article) {
-    return [...article.querySelectorAll('h2, h3')].filter((heading) => /transformation/i.test(heading.textContent)).map((heading) => {
+    const headings = [...article.querySelectorAll('h2, h3')];
+    const getSectionName = (heading) => heading.textContent.replace(/\s+/g, ' ').trim();
+    return headings.filter((heading) => /transformation/i.test(heading.textContent)).map((heading) => {
         const section = [];
         for (let element = heading.nextElementSibling; element && !['H2', 'H3'].includes(element.tagName); element = element.nextElementSibling) section.push(element);
-        const images = section.flatMap((item) => [...item.querySelectorAll('img[data-src], img[src]')]);
-        const image = images.find((item) => (item.dataset.src || item.src) && !(item.dataset.src || item.src).startsWith('data:'));
+        const mediaItems = section.flatMap((item) => [...item.querySelectorAll('img[data-src], img[src], video[src]')]);
+        const media = mediaItems.find((item) => (item.dataset.src || item.currentSrc || item.src) && !(item.dataset.src || item.currentSrc || item.src).startsWith('data:'));
         const description = section.flatMap((item) => [...item.querySelectorAll('figcaption, p')]).map((item) => item.textContent.replace(/\s+/g, ' ').trim()).find((text) => text.length > 12 && !text.includes('Properties:'));
-        return { name: heading.textContent.replace(/\s*\(Transformation\)\s*/i, '').replace(/[\[\]]/g, '').trim(), section: heading.textContent.replace(/\s+/g, ' ').trim(), description: description || 'This character gains access to a transformed moveset.', image: image?.dataset.src || image?.src || '' };
+        const nextHeading = headings[headings.indexOf(heading) + 1];
+        const moveSections = nextHeading && /(?:awakening|transformed|mode).*moves/i.test(nextHeading.textContent) ? [getSectionName(nextHeading)] : [];
+        return {
+            name: heading.textContent.replace(/\s*\(Transformation\)\s*/i, '').replace(/[\[\]]/g, '').trim(),
+            section: getSectionName(heading),
+            moveSections,
+            description: description || 'This character gains access to a transformed moveset.',
+            media: media?.dataset.src || media?.currentSrc || media?.src || '',
+            mediaType: media?.tagName === 'VIDEO' ? 'video' : 'image'
+        };
     });
 }
 

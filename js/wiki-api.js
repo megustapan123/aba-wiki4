@@ -29,6 +29,9 @@ export async function fetchWikiArticle(title, thumbnailSize = 600) {
     const document = new DOMParser().parseFromString(articleData.parse.text['*'], 'text/html');
     const article = document.querySelector('.mw-parser-output') || document.body;
     await localizeArticleMedia(article);
+    await Promise.all([...article.querySelectorAll('video[src]')].map(async (video) => {
+        video.src = await resolveMediaUrl(video.src);
+    }));
     return { page, article };
 }
 
