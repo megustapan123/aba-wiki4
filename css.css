@@ -30,7 +30,7 @@ body {
     margin: 0;
     min-height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78)),
-                url('https://tr.rbxcdn.com/180DAY-894265ce60207c8f9cb5043907a8d559/768/432/Image/Webp/noFilter') center/cover no-repeat fixed;
+                url('images/hero-background.webp') center/cover no-repeat fixed;
     background-attachment: fixed;
     color: #ffffff;
     overflow: hidden;
