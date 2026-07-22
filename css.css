@@ -1380,7 +1380,7 @@ a.tag:hover {
     line-height: 1.4;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 600px) {
     .quick-links-grid {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     }
