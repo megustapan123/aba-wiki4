@@ -1338,7 +1338,7 @@ a.tag:hover {
 
 .quick-links-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 16px;
     margin-top: 16px;
 }
@@ -1378,6 +1378,12 @@ a.tag:hover {
     font-size: 0.85rem;
     color: #e5e5e5;
     line-height: 1.4;
+}
+
+@media (max-width: 760px) {
+    .quick-links-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
 }
 
 .topbar-info {
@@ -1532,9 +1538,18 @@ a.tag:hover {
 
 .carousel-controls {
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: 12px;
     margin: 14px auto 8px;
+}
+
+.carousel-counter {
+    min-width: 3.5rem;
+    color: #f5f5f5;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
 }
 
 .carousel-btn {

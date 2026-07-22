@@ -41,6 +41,7 @@ function initializeMenu() {
 function initializeCarousel() {
     const image = document.getElementById('featured-image');
     const caption = document.getElementById('featured-caption');
+    const counter = document.getElementById('carousel-counter');
     if (!image || !caption) return;
 
     const slides = [
@@ -53,6 +54,7 @@ function initializeCarousel() {
     const show = (index) => {
         current = (index + slides.length) % slides.length;
         const [source, fallback, alt, text] = slides[current];
+        if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
         image.classList.add('fade-out');
         caption.classList.add('fade-out');
         setTimeout(() => {
