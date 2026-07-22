@@ -1,4 +1,4 @@
-export const r2MediaBaseUrl = 'https://pub-5987ad03452646c398f564bb3b899dbd.r2.dev';
+export const r2MediaBaseUrl = 'https://pub-2fd8276d970f41d7a059a6e2b0fdd561.r2.dev';
 
 let manifestPromise;
 
